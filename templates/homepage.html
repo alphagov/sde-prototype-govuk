@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% set bodyClasses = "homepage" %}
+
+{% block main %}
+<main id="content" role="main">
+  {% include "homepage/inverse_header.html" %}
+  {#
+  <%= render "homepage/cost_of_living_header" %>
+  <%= render "homepage/links_and_search" %>
+
+  <div class="govuk-width-container">
+    <%= render "homepage/services_and_information" %>
+    <%= render "homepage/government_activity" %>
+    <%= render "homepage/promotion-slots" %>
+    <%= render "homepage/more_on_govuk" %>
+  </div>
+  #}
+</main>
+{% endblock %}

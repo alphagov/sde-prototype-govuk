@@ -1,0 +1,31 @@
+.homepage .govuk-header {
+  border-bottom: 0;
+}
+
+.homepage-inverse-header {
+  padding-bottom: 50px;
+  padding-top: 60px;
+  background-color: #1d70b8;
+  font-family: "GDS Transport", arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.homepage-inverse-header__title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+.homepage-inverse-header__intro {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.homepage-inverse-header__intro--bold {
+  font-weight: 700;
+}
