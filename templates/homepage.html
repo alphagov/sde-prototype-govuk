@@ -1,20 +1,20 @@
 {% extends "base.html" %}
+{% from "homepage/chevron_card.html" import chevron_card %}
+{% from "homepage/big_number.html" import big_number %}
 
 {% set bodyClasses = "homepage" %}
 
 {% block main %}
 <main id="content" role="main">
   {% include "homepage/inverse_header.html" %}
-  {#
-  <%= render "homepage/cost_of_living_header" %>
-  <%= render "homepage/links_and_search" %>
-
+  {% include "homepage/links_and_search.html" %}
   <div class="govuk-width-container">
-    <%= render "homepage/services_and_information" %>
-    <%= render "homepage/government_activity" %>
+    {% include "homepage/services_and_information.html" %}
+    {% include "homepage/government_activity.html" %}
+  {#
     <%= render "homepage/promotion-slots" %>
     <%= render "homepage/more_on_govuk" %>
-  </div>
   #}
+  </div>
 </main>
 {% endblock %}

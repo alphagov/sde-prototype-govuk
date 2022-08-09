@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# govuk frontend files
+static/fonts/
+static/images/
+static/govuk-frontend-*
+govuk_components/

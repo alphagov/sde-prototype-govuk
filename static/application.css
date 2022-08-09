@@ -29,3 +29,163 @@
 .homepage-inverse-header__intro--bold {
   font-weight: 700;
 }
+
+.homepage-section--links-and-search {
+  background: #f3f2f1;
+  padding: 30px 0 50px;
+}
+
+.homepage-most-viewed-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.homepage-most-viewed-list > li {
+  margin-bottom: 15px;
+}
+
+.homepage-most-viewed-list__item {
+  font-size: 19px;
+  font-size: 1.1875rem;
+  line-height: 1.3157894737;
+  font-weight: 700;
+  text-decoration-thickness: max(1px, .0625rem);
+  text-underline-offset: .1em;
+}
+
+.homepage-section {
+  padding: 20px 0 30px;
+}
+
+.homepage-section--services-and-info {
+  padding: 30px 0 0;
+}
+
+.homepage-section__heading {
+  margin: 0 0 30px;
+  border-top: 2px solid #0b0c0c;
+  padding: 15px 0 0;
+}
+
+.homepage-section__heading--border-none {
+  border: none;
+  padding: 0;
+}
+
+.homepage-section__heading-wrapper {
+  margin-bottom: 0;
+}
+
+.homepage-services-and-info__list {
+  display: ms-grid;
+  display: grid;
+  grid-auto-flow: row;
+  -ms-grid-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
+  list-style: none;
+  margin: 0 -15px;
+  padding: 0;
+}
+
+.chevron-card {
+  border-top: 1px solid #b1b4b6;
+  margin: 0 15px;
+  padding: 5px 0 20px 0;
+}
+
+.chevron-card__wrapper {
+  padding: 10px 30px 10px 0;
+  position: relative;
+}
+
+.chevron-card__link {
+  text-decoration-thickness: max(1px, .0625rem);
+  text-underline-offset: .1em;
+}
+
+.chevron-card__link::before {
+  border-right: 3px solid #1d70b8;
+  border-top: 3px solid #1d70b8;
+  content: "";
+  display: block;
+  height: 7px;
+  position: absolute;
+  right: 5px;
+  top: 15px;
+  -webkit-transform: translateY(0) rotate(45deg) scale(1);
+  -ms-transform: translateY(0) rotate(45deg) scale(1);
+  transform: translateY(0) rotate(45deg) scale(1);
+  width: 7px;
+}
+
+.chevron-card__link::after {
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.chevron-card__description {
+  margin: 0 -30px 0 0;
+}
+
+.lead-paragraph {
+  font-family: "GDS Transport", arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  color: #0b0c0c;
+  font-weight: 400;
+  margin-top: 0;
+  max-width: 30em;
+}
+
+.homepage-section__government-activity .homepage-services-and-info__list {
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  margin-bottom: 0;
+}
+
+.big-number {
+  color: #0b0c0c;
+  margin-bottom: 15px;
+}
+
+.big-number__link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.big-number__value {
+  font-weight: 700;
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.big-number__link .big-number__label {
+  text-decoration: underline;
+  text-decoration-thickness: max(1px, .0625rem);
+  text-underline-offset: .1em;
+}
+
+.big-number__label {
+  font-size: 19px;
+  font-size: 1.1875rem;
+  line-height: 1.3157894737;
+  font-weight: 700;
+}
+
+.big-number__label::before {
+  content: "";
+  display: block;
+}

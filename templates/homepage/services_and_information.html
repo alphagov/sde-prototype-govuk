@@ -1,0 +1,20 @@
+<section class="homepage-section homepage-section--services-and-info">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div class="homepage-section__heading homepage-section__heading--border-none">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">Topics</h2>
+      </div>
+      
+      <ul class="homepage-services-and-info__list" data-module="gem-track-click">
+        {% for item in categories: %}
+          {{ chevron_card(
+            description=item.description,
+            link=item.link,
+            title=item.title,
+            track_action="topicsLink",
+          ) }}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>

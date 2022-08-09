@@ -1,0 +1,9 @@
+{% macro big_number(number, label, href, classes="") %}
+  <div class="big-number {{ classes }}">
+    <a class="govuk-link big-number__link" href="{{ href }}">
+      <span class="big-number__value">{{ number }}</span>
+      <span class="govuk-visually-hidden">&nbsp; </span>
+      <span class="big-number__label">{{ label }}</span>
+    </a>
+  </div>
+{% endmacro %}

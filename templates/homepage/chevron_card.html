@@ -1,0 +1,18 @@
+{% macro chevron_card(description, link, title, track_action, element = "li") %}
+  <{{ element }} class="chevron-card">
+    <div class="chevron-card__wrapper">
+      <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+        <a href="{{ link }}"
+            class="govuk-link chevron-card__link"
+            data-track-action="{{ track_action }}"
+            data-track-category="homepageClicked"
+            data-track-dimension-index="29"
+            data-track-dimension="{{ title }}"
+            data-track-label="{{ link }}"
+            data-track-value="1"
+        >{{ title }}</a>
+      </h3>
+      <p class="govuk-body chevron-card__description">{{ description }}</p>
+    </div>
+  </{{ element }}>
+{% endmacro %}

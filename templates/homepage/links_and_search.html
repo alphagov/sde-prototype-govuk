@@ -1,0 +1,24 @@
+<section class="homepage-section homepage-section--links-and-search">
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h1 class="govuk-heading-m govuk-!-margin-bottom-4">Popular on SDE Prototype</h1>
+        <ul class="homepage-most-viewed-list" data-module="gem-track-click">
+          {% for item in popular_links %}
+            <li>
+              <a href="{{ item.href }}"
+                 class="govuk-link homepage-most-viewed-list__item"
+                 data-track-category="homepageClicked"
+                 data-track-action="popularLink"
+                 data-track-label="{{ item.href }}"
+                 data-track-value="1"
+                 data-track-dimension-index="29"
+                 data-track-dimension="{{ item.text }}"
+              >{{ item.text }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

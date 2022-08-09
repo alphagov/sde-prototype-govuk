@@ -1,0 +1,46 @@
+<section class="homepage-section homepage-section__government-activity">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-grid-column-two-thirds-from-desktop" data-module="gem-track-click">
+      <div class="homepage-section__heading">
+        <div class="homepage-section__heading-wrapper">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Government activity</h2>
+        </div>
+        <p class="lead-paragraph govuk-!-margin-bottom-0">
+          Find out what the government is doing
+        </p>
+      </div>
+
+      <ul class="homepage-services-and-info__list">
+        {% for item in government_activity: %}
+          {{ chevron_card(
+            description=item.description,
+            link=item.link,
+            title=item.title,
+            track_action="governmentactivityLink",
+          ) }}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="govuk-grid-column-full govuk-grid-column-one-third-from-desktop">
+      <div class="homepage-section__heading">
+        <h2 class="govuk-heading-m">Departments and organisations</h2>
+      </div>
+      
+      <div class="homepage-section__depts" data-module="gem-track-click">
+        {{ big_number(
+          number=ministerial_departments_count,
+          label="Ministerial departments",
+          href="#departments",
+          classes="govuk-!-margin-bottom-6",
+        ) }}
+        {{ big_number(
+          number=other_agencies_count,
+          label="Other agencies and public bodies",
+          href="#agencies",
+          classes="govuk-!-margin-bottom-6",
+        ) }}
+      </div>
+    </div>
+  </div>
+</section>
