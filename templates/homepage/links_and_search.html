@@ -4,17 +4,17 @@
       <div class="govuk-grid-column-one-half">
         <h1 class="govuk-heading-m govuk-!-margin-bottom-4">Popular on SDE Prototype</h1>
         <ul class="homepage-most-viewed-list" data-module="gem-track-click">
-          {% for item in popular_links %}
+          {% for name, item in services.items() %}
             <li>
-              <a href="{{ item.href }}"
+              <a href="{{ url_for("start_page", service_name=name) }}"
                  class="govuk-link homepage-most-viewed-list__item"
                  data-track-category="homepageClicked"
                  data-track-action="popularLink"
-                 data-track-label="{{ item.href }}"
+                 data-track-label="{{ name }}"
                  data-track-value="1"
                  data-track-dimension-index="29"
-                 data-track-dimension="{{ item.text }}"
-              >{{ item.text }}</a>
+                 data-track-dimension="{{ item.title }}"
+              >{{ item.title }}</a>
             </li>
           {% endfor %}
         </ul>

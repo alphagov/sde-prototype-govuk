@@ -1,3 +1,35 @@
+{% set government_activity = [
+    {
+        "title": "Departments",
+        "link": "#departments",
+        "description": "Departments, agencies and public bodies",
+    },
+    {
+        "title": "Research and statistics",
+        "link": "#research",
+        "description": "Reports, analysis and official statistics",
+    },
+    {
+        "title": "News",
+        "link": "#news",
+        "description": "News stories, speeches, letters and notices",
+    },
+    {
+        "title": "Policy papers and consultations",
+        "link": "#policy",
+        "description": "Consultations and strategy",
+    },
+    {
+        "title": "Guidance and regulation",
+        "link": "#guidance",
+        "description": "Detailed guidance, regulations and rules",
+    },
+    {
+        "title": "Transparency documents",
+        "link": "#transparency",
+        "description": "Data, Freedom of Information releases and corporate reports",
+    },
+] %}
 <section class="homepage-section homepage-section__government-activity">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full govuk-grid-column-two-thirds-from-desktop" data-module="gem-track-click">
@@ -29,13 +61,13 @@
       
       <div class="homepage-section__depts" data-module="gem-track-click">
         {{ big_number(
-          number=ministerial_departments_count,
+          number=23,
           label="Ministerial departments",
           href="#departments",
           classes="govuk-!-margin-bottom-6",
         ) }}
         {{ big_number(
-          number=other_agencies_count,
+          number="400+",
           label="Other agencies and public bodies",
           href="#agencies",
           classes="govuk-!-margin-bottom-6",

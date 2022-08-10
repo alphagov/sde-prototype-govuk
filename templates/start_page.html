@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "govuk_frontend_jinja/components/breadcrumbs/macro.html" import govukBreadcrumbs -%}
+{% from "govuk_frontend_jinja/components/button/macro.html" import govukButton -%}
+
+{% block main %}
+  <div id="wrapper" class="govuk-width-container">
+    {{ govukBreadcrumbs({
+      "collapseOnMobile": True,
+      "items": [
+        {
+          "text": "Home",
+          "href": "/",
+        },
+        {
+          "text": "SDE Protoype",
+          "href": "/",
+        },
+        {
+          "text": service.title,
+          "href": "#",
+        }
+      ]
+    }) }}
+
+    <main id="content" class="govuk-main-wrapper" role="main">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <div class="govuk-!-margin-top-0 govuk-!-margin-bottom-8">
+            <h1 class="govuk-heading-xl govuk-!-margin-0">
+              {{ service.title }}
+            </h1>
+          </div>
+        </div>
+        <div class="article-container group govuk-grid-column-two-thirds">
+          <div class="content-block">
+            <div class="inner">
+              {% block intro %}
+                <div class="get-started-intro">
+                  {{ service.intro|safe }}
+                </div>
+              {% endblock %}
+              <p id="get-started" class="get-started group">
+                {{ govukButton({
+                  "text": "Start now",
+                  "href": service.href,
+                  "isStartButton": True,
+                }) }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+{% endblock %}
