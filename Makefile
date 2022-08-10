@@ -1,14 +1,16 @@
+GOVUK_TMP=tmp_govuk_frontend
+
 govuk_assets: clean_govuk_assets
-	@mkdir -p tmp_govuk_frontend
-	@curl -L -s https://github.com/alphagov/govuk-frontend/archive/refs/tags/v4.2.0.tar.gz | tar -xz --strip 1 -C tmp_govuk_frontend
-	@mv tmp_govuk_frontend/dist/*.min.{css,js} static
-	@mv tmp_govuk_frontend/dist/assets/* static
-	@mv tmp_govuk_frontend/package/govuk/components govuk_components
+	@mkdir -p $(GOVUK_TMP)
+	@curl -L -s https://github.com/alphagov/govuk-frontend/archive/refs/tags/v4.2.0.tar.gz | tar -xz --strip 1 -C $(GOVUK_TMP)
+	@mv $(GOVUK_TMP)/dist/govuk-frontend-*.min.* static/
+	@mv $(GOVUK_TMP)/dist/assets/* static/
+	@mv $(GOVUK_TMP)/package/govuk/components govuk_components
 	@find govuk_components -type f ! -name 'fixtures.json' -delete
-	@rm -rf tmp_govuk_frontend
+	@rm -rf $(GOVUK_TMP)
 
 clean_govuk_assets:
-	@rm -rf govuk_components tmp_govuk_frontend static/images static/fonts
+	@rm -rf $(GOVUK_TMP) govuk_components static/images static/fonts
 
 clean: clean_govuk_assets
 
