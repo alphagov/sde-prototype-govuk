@@ -12,6 +12,4 @@ RUN make govuk_assets
 
 RUN pip install -r requirements.txt
 
-EXPOSE 5000
-
-ENTRYPOINT ["flask", "run", "--host", "0.0.0.0"]
+ENTRYPOINT flask run --host "0.0.0.0" --port $PORT
