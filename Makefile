@@ -1,4 +1,7 @@
+DOCKER_IMAGE=sde_prototype_govuk
+DOCKER_REPO=gcr.io/govuk-bigquery-analytics
 GOVUK_TMP=tmp_govuk_frontend
+VERSION=$(shell cat version)
 
 govuk_assets: clean_govuk_assets
 	@mkdir -p $(GOVUK_TMP)
@@ -16,3 +19,9 @@ clean: clean_govuk_assets
 
 run_dev_server:
 	@flask --app app:app --debug run
+
+docker-image:
+	@docker buildx build --platform linux/amd64 -t $(DOCKER_IMAGE) .
+	@docker tag $(DOCKER_IMAGE) $(DOCKER_IMAGE):$(VERSION)
+	@docker tag $(DOCKER_IMAGE) $(DOCKER_REPO)/$(DOCKER_IMAGE):$(VERSION)
+	@docker push $(DOCKER_REPO)/$(DOCKER_IMAGE):$(VERSION)
