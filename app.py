@@ -33,10 +33,49 @@ SERVICES = {
         ),
         "href": "",
     },
-    "unnamed": {
-        "title": "As yet unnamed service",
-        "intro": "",
-        "href": "",
+    "Apply_juggling_licence_ga4": {
+        "title": "Apply for a juggling licence GA4 tags",
+        "intro": markdown(
+            """Prototype sandbox service for fake apply for a juggling licence service with 
+            GA4 tagging on each page. The service is used to help the SDE team understand the 
+             challenges services onboarding to SDE Cross Domain Tracking face when implementing 
+             their tagging. It will also be used to help explain to services the concept of 
+             cross domain tracking.  And it will be used to test the single cookie consent prototype tool"""
+        ),
+        "href": "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/start-ga4",
+    },
+"Apply_juggling_licence_ua360": {
+        "title": "Apply for a juggling licence Universal Analytics tags",
+        "intro": markdown(
+            """Prototype sandbox service for fake apply for a juggling licence service with 
+            Universal Analytics tagging on each page. The service is used to help the SDE team understand the 
+             challenges services onboarding to SDE Cross Domain Tracking face when implementing 
+             their tagging. It will also be used to help explain to services the concept of 
+             cross domain tracking.  And it will be used to test the single cookie consent prototype tool"""
+        ),
+        "href": "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/start-ua360",
+    },
+"Apply_juggling_class_ga4": {
+        "title": "Apply for a juggling class GA4 tags",
+        "intro": markdown(
+            """Prototype sandbox service for fake apply for a juggling class service with 
+            GA4 tagging on each page. The service is used to help the SDE team understand the 
+             challenges services onboarding to SDE Cross Domain Tracking face when implementing 
+             their tagging. It will also be used to help explain to services the concept of 
+             cross domain tracking.  And it will be used to test the single cookie consent prototype tool"""
+        ),
+        "href": "https://apply-juggling-class-j4f7bdslta-nw.a.run.app/start-ua360",
+    },
+"Apply_juggling_class_ga4": {
+        "title": "Apply for a juggling class Universal Analytics tags",
+        "intro": markdown(
+            """Prototype sandbox service for fake apply for a juggling class service with 
+            Universal Analytics tagging on each page. The service is used to help the SDE team understand the 
+             challenges services onboarding to SDE Cross Domain Tracking face when implementing 
+             their tagging. It will also be used to help explain to services the concept of 
+             cross domain tracking.  And it will be used to test the single cookie consent prototype tool"""
+        ),
+        "href": "https://apply-juggling-class-j4f7bdslta-nw.a.run.app/start-ga4",
     },
     "wordpress": {
         "title": "Some Wordpress site",
