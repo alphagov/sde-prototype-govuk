@@ -34,20 +34,20 @@ SERVICES = {
         "href": "",
     },
     "Apply_juggling_licence_ga4": {
-        "title": "Juggling campaign page",
+        "title": "Juggling campaign page GA4 route",
         "intro": markdown(
             """Prototype sandbox campaign page that links to prototype juggling services differnt GA tagging on 
             each service - campaign page built in word press"""
         ),
-        "href": "https://wordpress-j4f7bdslta-nw.a.run.app/contact/",
+        "href": "https://wordpress-ga4-j4f7bdslta-nw.a.run.app",
     },
     "Apply_juggling_licence_ua360": {
-        "title": "Juggling campaign page",
+        "title": "Juggling campaign page universal analytics route",
         "intro": markdown(
             """Prototype sandbox campaign page that links to prototype juggling services differnt GA tagging on 
             each service - campaign page built in word press"""
         ),
-        "href": "https://wordpress-j4f7bdslta-nw.a.run.app/contact/",
+        "href": "https://wordpress-j4f7bdslta-nw.a.run.app",
     }
 
 }
