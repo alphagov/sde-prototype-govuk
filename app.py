@@ -41,6 +41,15 @@ SERVICES = {
         ),
         "href": "https://wordpress-j4f7bdslta-nw.a.run.app/contact/",
     },
+    "Apply_juggling_licence_ua360": {
+        "title": "Juggling campaign page",
+        "intro": markdown(
+            """Prototype sandbox campaign page that links to prototype juggling services differnt GA tagging on 
+            each service - campaign page built in word press"""
+        ),
+        "href": "https://wordpress-j4f7bdslta-nw.a.run.app/contact/",
+    }
+
 }
 
 @app.route("/")
