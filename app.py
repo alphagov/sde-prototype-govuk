@@ -16,6 +16,10 @@ app.jinja_loader = ChoiceLoader(
     ]
 )
 
+CONTAINER_IDS = {
+    "GA4": "GTM-TTVXKG3",
+    "UA": "GTM-5S9XWS6",
+}
 
 SERVICES = {
     "haas": {
@@ -48,13 +52,17 @@ SERVICES = {
             each service - campaign page built in word press"""
         ),
         "href": "https://wordpress-j4f7bdslta-nw.a.run.app",
-    }
-
+    },
 }
+
 
 @app.route("/")
 def index():
-    return flask.render_template("homepage.html", services=SERVICES)
+    return flask.render_template(
+        "homepage.html",
+        services=SERVICES,
+        container_ids=CONTAINER_IDS,
+    )
 
 
 @app.route("/start/<service_name>")
@@ -62,4 +70,5 @@ def start_page(service_name):
     return flask.render_template(
         "start_page.html",
         service=SERVICES[service_name],
+        container_ids=CONTAINER_IDS,
     )
