@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% from "homepage/chevron_card.html" import chevron_card %}
 {% from "homepage/big_number.html" import big_number %}
+{% from "google_analytics/gtm.html" import gtm_head_multi_container, gtm_body_multi_container %}
 
 {% set bodyClasses = "homepage" %}
+
+{% block head %}
+  {{ gtm_head_multi_container(container_ids.values()) }}
+  {{ super() }}
+{% endblock %}
+
+{% block bodyStart %}
+  {{ gtm_body_multi_container(container_ids.values()) }}
+{% endblock %}
 
 {% block main %}
 <main id="content" role="main">
