@@ -1,0 +1,124 @@
+{% from "govuk_frontend_jinja/components/button/macro.html" import govukButton -%}
+
+{% macro to_paras(text) %}
+  {% if text is iterable and text is not string %}
+    {% for para in text %}
+      <p class="govuk-body">{{ para }}</p>
+    {% endfor %}
+  {% else %}
+    <p class="govuk-body">{{ text }}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro cookie_banner(params) %}
+  {% set title = params.title|default("Cookies on GOV.UK") %}
+  {% set cookie_preferences_href = params.cookie_preferences_href|default("/help/cookies") %}
+  {% set css_classes = ["gem-c-cookie-banner", "govuk-clearfix"] %}
+  {% if params.services_cookies %}
+    {% set css_classes = css_classes + ["gem-c-cookie-banner--services"] %}
+  {% endif %}
+  <div id="{{ params.id|default("global-cookie-message") }}"
+       class="{{ css_classes|join(' ') }}"
+       data-module="cookie-banner consent"
+       role="region"
+       aria-label="cookie banner"
+       data-nosnippet>
+    <div class="govuk-cookie-banner js-banner-wrapper" role="region" aria-label="{{ title }}">
+      <div class="gem-c-cookie-banner__message govuk-cookie-banner__message govuk-width-container">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-cookie-banner__heading govuk-heading-m">{{ title }}</h2>
+            <div class="govuk-cookie-banner__content">
+              {{ to_paras(params.text|default([
+                "We use some essential cookies to make this website work.",
+                "We’d like to set additional cookies to understand how you use GOV.UK, remember your settings and improve government services.",
+                "We also use cookies set by other sites to help us deliver content from their services."
+              ])) | safe }}
+            </div>
+          </div>
+        </div>
+        {% if services_cookies %}
+          <div class="govuk-button-group">
+            {% with data_attrs = {"data-module": "gem-track-click", "data-accept-cookies": "true"} %}
+              {% for name, value in services_cookies.yes.data_attributes %}{% set _ = attrs.update(("data-"+name, value)) %}{% endfor -%}
+              {{ button({
+                "classes": "gem-c-button",
+                "name": "cookies",
+                "text": (services_cookies.yes.text)|default("Yes"),
+                "attributes": attrs,
+              }) }}
+            {% endwith %}
+            {% with attrs = {"data-module": "gem-track-click", "data-reject-cookies": "true"} -%}
+              {% for name, value in services_cookies.no.data_attributes %}{% set _ = attrs.update(("data-"+name, value)) %}{% endfor -%}
+              {{ govukButton({
+                "classes": "gem-c-button",
+                "name": "cookies",
+                "text": (services_cookies.no.text)|default("No"),
+                "attributes": attrs,
+              }) }}
+            {%- endwith %}
+            {% if services_cookies.cookie_preferences %}
+              <a class="govuk-link" href="{{ services_cookies.cookie_preferences.href }}">{{ services_cookies.cookie_preferences.text }}</a>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="govuk-button-group">
+            {{ govukButton({
+              "classes": "gem-c-button",
+              "name": "cookies",
+              "text": "Accept additional cookies",
+              "attributes": {
+                "data-module": "gem-track-click",
+                "data-accept-cookies": "true",
+                "data-track-category": "cookieBanner",
+                "data-track-action": "Cookie banner accepted",
+                "data-cookie-types": "all",
+              }
+            }) }}
+            {{ govukButton({
+              "classes": "gem-c-button",
+              "name": "cookies",
+              "text": "Reject additional cookies",
+              "attributes": {
+                "data-module": "gem-track-click",
+                "data-reject-cookies": "true",
+                "data-track-category": "cookieBanner",
+                "data-track-action": "Cookie banner rejected",
+              }
+            }) }}
+            <a class="govuk-link" href="{{ cookie_preferences_href }}">View cookies</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="gem-c-cookie-banner__confirmation govuk-width-container" tabindex="-1" hidden>
+      <p class="gem-c-cookie-banner__confirmation-message" role="alert">{{ confirmation_message }}
+        {% if params.confirmation_message %}
+          {{ confirmation_message }}
+        {% else %}
+          You can
+          <a class="govuk-link"
+            data-module="gem-track-click"
+            data-track-category="cookieBanner"
+            data-track-action="Cookie banner settings clicked from confirmation"
+            href="{{ cookie_preferences_href }}">
+            change your cookie settings
+          </a>
+          at any time.
+        {% endif %}
+      </p>
+      <div class="govuk-button-group">
+        {{ govukButton({
+          "classes": "gem-c-cookie-banner__hide-button",
+          "attributes": {
+            "data-hide-cookie-banner": "true",
+            "data-module": "gem-track-click",
+            "data-track-category": "cookieBanner",
+            "data-track-action": "Hide cookie banner"
+          },
+          "text": "Hide this message"
+        }) }}
+      </div>
+    </div>
+  </div>
+{% endmacro %}

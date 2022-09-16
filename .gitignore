@@ -128,8 +128,20 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Javascript stuff
+node_modules/
+
 # govuk frontend files
-static/fonts/
-static/images/
-static/govuk-frontend-*
-govuk_components/
+sde_prototype_govuk/static/css/
+sde_prototype_govuk/static/fonts/
+sde_prototype_govuk/static/images/
+sde_prototype_govuk/static/govuk-frontend-*
+sde_prototype_govuk/static/govuk-publishing-components-*
+govuk_frontend/
+govuk_frontend_components/
+govuk_publishing_components/
+
+# generated files
+sde_prototype_govuk/static/application.css
+sde_prototype_govuk/static/application.js
+sde_prototype_govuk/static/test-dependencies.js

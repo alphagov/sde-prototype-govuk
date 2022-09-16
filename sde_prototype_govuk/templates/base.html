@@ -1,4 +1,5 @@
 {% extends 'govuk_frontend_jinja/template.html' %}
+{% from 'govuk_frontend_jinja/components/cookie-banner/macro.html' import govukCookieBanner %}
 
 {% set assetPath = url_for('static', filename='').rstrip('/') %}
 
@@ -6,9 +7,97 @@
 
 {% block head %}
   <meta name="description" content="GOV.UK - The place to find government services and information - simpler, clearer, faster.">
-  <!--[if gt IE 8]><!--><link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='govuk-frontend-4.2.0.min.css') }}" /><!--<![endif]-->
-  <!--[if IE 8]><link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='govuk-frontend-ie8-4.2.0.min.css') }}" /><![endif]-->
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='application.css') }}" />
+  {% assets "govuk_frontend_css" %}<!--[if gt IE 8]><!--><link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" /><!--<![endif]-->{% endassets %}
+  {% assets "govuk_frontend_ie8_css" %}<!--[if IE 8]><link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" /><![endif]-->{% endassets %}
+  {% assets "govuk_publishing_components_css" %}<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />{% endassets %}
+  {% assets "application_css" %}<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />{% endassets %}
+{% endblock %}
+
+{% block bodyStart %}
+  {% set html %}
+    <p class="govuk-body">We use some essential cookies to make this service work.</p>
+    <p class="govuk-body">We'd also like to use analytics cookies so we can understand
+    how you use the service and make improvements.</p>
+  {% endset %}
+
+  {% set accept_html %}
+    <p class="govuk-body">You've accepted additional cookies. You can <a
+      class="govuk-link" href="#"> change your cookie settings</a> at any time.</p>
+  {% endset %}
+
+  {% set reject_html %}
+    <p class="govuk-body">You've rejected additional cookies. You can <a
+      class="govuk-link" href="#"> change your cookie settings</a> at any time.</p>
+  {% endset %}
+
+  {{ govukCookieBanner({
+    'hidden': False,
+    'ariaLabel': 'Cookies on HaaS',
+    'attributes': {
+      'data-module': 'govuk-cookie-banner consent',
+    },
+    'messages': [
+      {
+        'headingText': 'Cookies on HaaS',
+        'html': html,
+        'classes': 'js-cookie-banner-message',
+        'actions': [
+          {
+            'text': 'Accept analytics cookies',
+            'name': 'cookies',
+            'value': 'accept',
+            'attributes': {
+              'data-accept-cookies': 'true',
+            }
+          },
+          {
+            'text': 'Reject analytics cookies',
+            'name': 'cookies',
+            'value': 'reject',
+            'attributes': {
+              'data-reject-cookies': 'true',
+            }
+          },
+          {
+            'text': 'View cookies',
+            'href': '#'
+          }
+        ]
+      },
+      {
+        'html': accept_html,
+        'classes': 'js-cookie-banner-confirmation-accept',
+        'role': 'alert',
+        'actions': [
+          {
+            'text': 'Hide cookie message',
+            'type': 'button',
+            'href': '#',
+            'attributes': {
+              'data-hide-cookie-message': 'true',
+            }
+          }
+        ],
+        'hidden': True
+      },
+      {
+        'html': reject_html,
+        'classes': 'js-cookie-banner-confirmation-reject',
+        'role': 'alert',
+        'actions': [
+          {
+            'text': 'Hide cookie message',
+            'type': 'button',
+            'href': '#',
+            'attributes': {
+              'data-hide-cookie-message': 'true',
+            }
+          }
+        ],
+        'hidden': True
+      }
+    ]
+  }) }}
 {% endblock %}
 
 {% block footer %}
@@ -164,8 +253,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <!--[if gt IE 8]><!-->
-  <script src="{{ url_for('static', filename='govuk-frontend-4.2.0.min.js') }}"> </script>
-  <script>window.GOVUKFrontend.initAll()</script>
-  <!--<![endif]-->
+  {% assets "govuk_frontend_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+  {% assets "application_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
 {% endblock %}
