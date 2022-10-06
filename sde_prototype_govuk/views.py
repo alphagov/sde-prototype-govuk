@@ -23,8 +23,7 @@ SERVICES = {
             often cryptic, akin to parables. Each line in every hexagram is also given a
             similar description."""
         ),
-        "href": "http://localhost:5000",
-        # "href": "https://haas-eboe7b6oiq-nw.a.run.app/",
+        "href": "https://haas-j4f7bdslta-nw.a.run.app/",
     },
     "Apply_juggling_licence_ga4": {
         "title": "Juggling campaign page GA4 route",

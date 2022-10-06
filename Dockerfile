@@ -1,15 +1,15 @@
 FROM python:3.10-slim
 
-RUN apt-get update && apt-get install -y curl make
-
 WORKDIR /home/app
 
-COPY static/ static/
-COPY templates/ templates/
-COPY Makefile app.py requirements.txt .
+COPY sde_prototype_govuk/ sde_prototype_govuk/
+COPY govuk_frontend/ govuk_frontend/
+COPY govuk_publishing_components/ govuk_publishing_components/
+COPY sprockets_filter.py requirements.txt .
 
-RUN make govuk_assets
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install -r requirements.txt
+ENV GOVUK_FRONTEND_VERSION="4.3.1"
+ENV GOVUK_PUBLISHING_COMPONENTS_VERSION="30.6.1"
 
-ENTRYPOINT flask run --host "0.0.0.0" --port $PORT
+ENTRYPOINT gunicorn sde_prototype_govuk:app
