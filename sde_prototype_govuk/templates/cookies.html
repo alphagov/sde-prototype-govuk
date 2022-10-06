@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% from "govuk_frontend_jinja/components/button/macro.html" import govukButton %}
+{% from "govuk_frontend_jinja/components/fieldset/macro.html" import govukFieldset %}
+{% from "govuk_frontend_jinja/components/radios/macro.html" import govukRadios %}
+{% from "govuk_frontend_jinja/components/notification-banner/macro.html" import govukNotificationBanner %}
+
+{% set pageTitle %}Cookies on GOV.UK{% endset %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% set success_html %}
+        <h3 class="govuk-notification-banner__heading">
+          Your cookie settings were saved
+        </h3>
+        <p class="govuk-body">
+          Government services may set additional cookies and, if so, will have their own
+          cookie policy and banner.
+        </p>
+        <a class="govuk-link govuk-notification-banner__link cookie-settings__prev-page" href="#">Go back to the page you were looking at</a>
+      {% endset %}
+      {{ govukNotificationBanner({
+        "type": "success",
+        "html": success_html,
+        "attributes": {
+          "data-cookie-confirmation": True,
+          "style": "display: none",
+        }
+      }) }}
+  <h1 class="govuk-heading-xl">Cookies on GOV.UK</h1>
+  <p class="govuk-body">
+    Cookies are files saved on your phone, tablet or computer when you visit a website.
+  </p>
+  <p class="govuk-body">
+    We use cookies to collect and store information about how you use the GOV.UK website
+    and government digital services, such as the pages you visit. 'Government digital
+    services' means any page with service.gov.uk in the URL.
+  </p>
+  <p class="govuk-body">
+    This page has a brief explanation of each type of cookie we use. If you want more
+    details, <a href="#" class="govuk-link">read our detailed cookie information</a>.
+  </p>
+
+  <h2 class="govuk-heading-m">Cookie settings</h2>
+  <p class="govuk-body">
+    We use 4 types of cookie. You can choose which cookies you're happy for us to use.
+  </p>
+  <form data-module="cookie-settings">
+    <div class="govuk-form-group">
+      {% call govukFieldset({
+        "legend": {
+          "text": "Cookies that measure website use",
+          "classes": "govuk-fieldset__legend--m",
+          "isPageHeading": True,
+        },
+      }) %}
+        {% set hint %}
+        <p class="govuk-body govuk-hint">
+          We use Google Analytics cookies to measure how you use GOV.UK and government digital
+          services.
+        </p>
+        <p class="govuk-body govuk-hint">
+          These cookies collect information about:
+        </p>
+        <ul class="govuk-list--bullet govuk-hint">
+          <li>how you got to these sites</li>
+          <li>the pages you visit and how long you spend on each page</li>
+          <li>what you click on while you're visiting these sites</li>
+        </ul>
+        <p class="govuk-body govuk-hint">
+          We also use LUX Real User Monitoring software cookies from SpeedCurve to measure
+          your web performance experience while visiting GOV.UK.
+        </p>
+        <p class="govuk-body govuk-hint">
+          LUX software cookies collect and store information about how well pages performed on
+          your device, including whether there were any performance bottlenecks or JavaScript
+          errors.
+        </p>
+        <p class="govuk-body govuk-hint">
+          We do not allow Google or SpeedCurve to use or share the data about how you use
+          these sites.
+        </p>
+        {% endset %}
+        {{ govukRadios({
+          "name": "cookies-usage",
+          "hint": {
+            "html": hint,
+          },
+          "items": [
+            {
+              "value": "on",
+              "text": "Use cookies that measure my website use",
+            },
+            {
+              "value": "off",
+              "text": "Do not use cookies that measure my website use",
+            },
+          ]
+        }) }}
+      {% endcall %}
+    </div>
+    <div class="govuk-form-group">
+      {% call govukFieldset({
+        "legend": {
+          "text": "Cookies that help with our communications and marketing",
+          "classes": "govuk-fieldset__legend--m",
+          "isPageHeading": True,
+        },
+      }) %}
+        {% set hint %}
+        <p class="govuk-body govuk-hint">
+          These cookies may be set by third party websites and do things like measure
+          how you view YouTube videos that are on GOV.UK.
+        </p>
+        {% endset %}
+        {{ govukRadios({
+          "name": "cookies-campaigns",
+          "hint": {
+            "html": hint,
+          },
+          "items": [
+            {
+              "value": "on",
+              "text": "Use cookies that help with communications and marketing",
+            },
+            {
+              "value": "off",
+              "text": "Do not use cookies that help with communications and marketing",
+            },
+          ]
+        }) }}
+      {% endcall %}
+    </div>
+    <div class="govuk-form-group">
+      {% call govukFieldset({
+        "legend": {
+          "text": "Cookies that remember your settings",
+          "classes": "govuk-fieldset__legend--m",
+          "isPageHeading": True,
+        },
+      }) %}
+        {% set hint %}
+        <p class="govuk-body govuk-hint">
+          These cookies do things like remember your preferences and the choices you
+          make, to personalise your experience of using the site.
+        </p>
+        {% endset %}
+        {{ govukRadios({
+          "name": "cookies-settings",
+          "hint": {
+            "html": hint,
+          },
+          "items": [
+            {
+              "value": "on",
+              "text": "Use cookies that remember my settings on the site",
+            },
+            {
+              "value": "off",
+              "text": "Do not use cookies that remember my settings on the site",
+            },
+          ]
+        }) }}
+      {% endcall %}
+    </div>
+    <div>
+      <h2 class="govuk-heading-m">Strictly necessary cookies</h2>
+      <p class="govuk-body">
+        These essential cookies do things like remember your progress through a form
+        (for example a licence application)
+      </p>
+      <p class="govuk-body">
+        They always need to be on.
+      </p>
+    </div>
+    {{ govukButton({"type": "submit", "text": "Save changes"}) }}
+  </form>
+
+{% endblock %}

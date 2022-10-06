@@ -1,20 +1,8 @@
 from markdown import markdown
+from flask import render_template
 
-import flask
-from jinja2 import ChoiceLoader
-from jinja2 import PackageLoader
-from jinja2 import PrefixLoader
+from sde_prototype_govuk import app
 
-
-app = flask.Flask(__name__, static_url_path="/assets")
-
-
-app.jinja_loader = ChoiceLoader(
-    [
-        PackageLoader("app"),
-        PrefixLoader({"govuk_frontend_jinja": PackageLoader("govuk_frontend_jinja")}),
-    ]
-)
 
 CONTAINER_IDS = {
     "GA4": "GTM-TTVXKG3",
@@ -35,7 +23,8 @@ SERVICES = {
             often cryptic, akin to parables. Each line in every hexagram is also given a
             similar description."""
         ),
-        "href": "https://haas-eboe7b6oiq-nw.a.run.app/",
+        "href": "http://localhost:5000",
+        # "href": "https://haas-eboe7b6oiq-nw.a.run.app/",
     },
     "Apply_juggling_licence_ga4": {
         "title": "Juggling campaign page GA4 route",
@@ -58,7 +47,7 @@ SERVICES = {
 
 @app.route("/")
 def index():
-    return flask.render_template(
+    return render_template(
         "homepage.html",
         services=SERVICES,
         container_ids=CONTAINER_IDS,
@@ -67,8 +56,13 @@ def index():
 
 @app.route("/start/<service_name>")
 def start_page(service_name):
-    return flask.render_template(
+    return render_template(
         "start_page.html",
         service=SERVICES[service_name],
         container_ids=CONTAINER_IDS,
     )
+
+
+@app.get("/help/cookies")
+def cookies():
+    return render_template("cookies.html")

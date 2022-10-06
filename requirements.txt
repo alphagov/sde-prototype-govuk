@@ -1,4 +1,7 @@
 flask
+Flask-assets
 govuk-frontend-jinja
 govuk-frontend-wtf
+jsmin
+libsass
 markdown

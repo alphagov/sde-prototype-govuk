@@ -50,7 +50,7 @@
   font-size: 1.1875rem;
   line-height: 1.3157894737;
   font-weight: 700;
-  text-decoration-thickness: max(1px, .0625rem);
+  text-decoration-thickness: calc(max(1px, .0625rem));
   text-underline-offset: .1em;
 }
 
@@ -102,7 +102,7 @@
 }
 
 .chevron-card__link {
-  text-decoration-thickness: max(1px, .0625rem);
+  text-decoration-thickness: calc(max(1px, .0625rem));
   text-underline-offset: .1em;
 }
 
@@ -174,7 +174,7 @@
 
 .big-number__link .big-number__label {
   text-decoration: underline;
-  text-decoration-thickness: max(1px, .0625rem);
+  text-decoration-thickness: calc(max(1px, .0625rem));
   text-underline-offset: .1em;
 }
 
@@ -201,5 +201,4 @@
   line-height: 1.3157894737;
   margin-top: 0;
   margin-bottom: 20px;
-}
 }
