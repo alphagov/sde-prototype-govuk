@@ -12,6 +12,7 @@
 
 {% block bodyStart %}
   {{ gtm_body_multi_container(container_ids.values()) }}
+  {{ super() }}
 {% endblock %}
 
 {% block main %}
