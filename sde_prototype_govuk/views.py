@@ -1,5 +1,6 @@
 from markdown import markdown
 from flask import render_template
+from textwrap import dedent
 
 from sde_prototype_govuk import app
 
@@ -26,20 +27,32 @@ SERVICES = {
         "href": "https://haas-j4f7bdslta-nw.a.run.app/",
     },
     "Apply_juggling_licence_ga4": {
-        "title": "Juggling campaign page GA4 route",
+        "title": "Apply juggling licence GA4 route",
         "intro": markdown(
-            """Prototype sandbox campaign page that links to prototype juggling services differnt GA tagging on 
-            each service - campaign page built in word press"""
+            dedent(
+                """
+                Use this service to:
+
+                * Apply for a juggling licence
+
+                Registering takes around 5 minutes."""
+            )
         ),
-        "href": "https://wordpress-ga4-j4f7bdslta-nw.a.run.app",
+        "href": "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/juggling-balls-ga4",
     },
     "Apply_juggling_licence_ua360": {
-        "title": "Juggling campaign page universal analytics route",
+        "title": "Apply juggling licence UA360 route",
         "intro": markdown(
-            """Prototype sandbox campaign page that links to prototype juggling services differnt GA tagging on 
-            each service - campaign page built in word press"""
+            dedent(
+                """
+                Use this service to:
+
+                * Apply for a juggling licence
+
+                Registering takes around 5 minutes."""
+            )
         ),
-        "href": "https://wordpress-j4f7bdslta-nw.a.run.app",
+        "href": "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/juggling-balls-ua360",
     },
 }
 

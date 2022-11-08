@@ -3,3 +3,4 @@ Flask-assets
 govuk-frontend-jinja
 gunicorn
 markdown
+python-dotenv
