@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": ">=18.12.1"
+  },
   "dependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",

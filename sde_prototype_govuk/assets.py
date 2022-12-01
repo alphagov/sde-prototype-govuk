@@ -1,10 +1,8 @@
+"""Set up asset bundles."""
 import os
 
 from flask_assets import Bundle
 from webassets.filter import get_filter
-
-from sprockets_filter import Sprockets
-
 
 GOVUK_FRONTEND_DIR = "../../govuk_frontend"
 GOVUK_FRONTEND_VERSION = os.environ["GOVUK_FRONTEND_VERSION"]
@@ -25,15 +23,16 @@ govuk_frontend_js = Bundle(
     output=f"govuk-frontend-{GOVUK_FRONTEND_VERSION}.min.js",
 )
 
+publishing_styles = "govuk_publishing_components/app/assets/stylesheets"
 govuk_publishing_components_css = Bundle(
-    "../../govuk_publishing_components/app/assets/stylesheets/govuk_publishing_components/_all_components.scss",
+    f"../../{publishing_styles}/govuk_publishing_components/_all_components.scss",
     filters=[
         get_filter(
             "libsass",
             style="compressed",
             includes=[
                 "govuk_frontend/src",
-                "govuk_publishing_components/app/assets/stylesheets",
+                publishing_styles,
             ],
         )
     ],

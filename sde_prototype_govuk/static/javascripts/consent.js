@@ -2,7 +2,7 @@
   "use strict"
 
   function Consent() {
-    this.apiURL = "https://consent-api.herokuapp.com/";
+    this.apiURL = "https://consent-api-bgzqvpmbyq-nw.a.run.app";
     this.sharedUID = Utils.getURLParameter("uid");
     this.localUID = Utils.getCookie("uid");
     this.uid = this.sharedUID || this.localUID;
