@@ -17,7 +17,7 @@ full-clean: clean
 	rm -rf node_modules
 	rm -rf govuk_frontend
 	rm -rf govuk_publishing_components
-	rm -rf $(STATIC)/images $(STATIC)/fonts
+	rm -rf $(STATIC)/images $(STATIC)/fonts $(STATIC)/javascripts
 	flask assets clean
 
 .PHONY: python-deps
@@ -28,7 +28,7 @@ python-deps:
 
 .PHONY: node-deps
 node-deps:
-	yarn install
+	npm install
 
 .PHONY: deps
 deps: python-deps node-deps
@@ -52,8 +52,13 @@ govuk_publishing_components:
 	curl -L -s https://github.com/alphagov/govuk_publishing_components/archive/refs/tags/v$(GOVUK_PUBLISHING_COMPONENTS_VERSION).tar.gz | tar -xz --strip 1 -C govuk_publishing_components
 	rm -rf govuk_publishing_components/lib
 
+.PHONY: consent_api
+consent_api:
+	mkdir -p $(STATIC)/javascripts
+	cp node_modules/@alphagov/consent-api/client/src/*.js $(STATIC)/javascripts/
+
 .PHONY: assets
-assets: govuk_frontend govuk_publishing_components
+assets: govuk_frontend govuk_publishing_components consent_api
 	cp -f -R govuk_frontend/dist/assets/* $(STATIC)/
 	flask assets build
 

@@ -135,6 +135,7 @@ node_modules/
 sde_prototype_govuk/static/css/
 sde_prototype_govuk/static/fonts/
 sde_prototype_govuk/static/images/
+sde_prototype_govuk/static/javascripts/
 sde_prototype_govuk/static/govuk-frontend-*
 sde_prototype_govuk/static/govuk-publishing-components-*
 govuk_frontend/
