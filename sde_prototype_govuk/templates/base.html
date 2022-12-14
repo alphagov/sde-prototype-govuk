@@ -22,23 +22,23 @@
 
   {% set accept_html %}
     <p class="govuk-body">You've accepted additional cookies. You can <a
-      class="govuk-link" href="#"> change your cookie settings</a> at any time.</p>
+      class="govuk-link" href="/help/cookies"> change your cookie settings</a> at any time.</p>
   {% endset %}
 
   {% set reject_html %}
     <p class="govuk-body">You've rejected additional cookies. You can <a
-      class="govuk-link" href="#"> change your cookie settings</a> at any time.</p>
+      class="govuk-link" href="/help/cookies"> change your cookie settings</a> at any time.</p>
   {% endset %}
 
   {{ govukCookieBanner({
     'hidden': False,
-    'ariaLabel': 'Cookies on HaaS',
+    'ariaLabel': 'Cookies on GOV.UK',
     'attributes': {
       'data-module': 'govuk-cookie-banner consent',
     },
     'messages': [
       {
-        'headingText': 'Cookies on HaaS',
+        'headingText': 'Cookies on GOV.UK',
         'html': html,
         'classes': 'js-cookie-banner-message',
         'actions': [
@@ -60,7 +60,7 @@
           },
           {
             'text': 'View cookies',
-            'href': '#'
+            'href': '/help/cookies'
           }
         ]
       },

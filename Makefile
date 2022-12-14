@@ -1,9 +1,5 @@
-APP_NAME=sde_prototype_govuk
-DOCKER_REPO=gcr.io/govuk-bigquery-analytics
-GOVUK_FRONTEND_VERSION=4.3.1
-GOVUK_PUBLISHING_COMPONENTS_VERSION=30.6.1
-STATIC=$(APP_NAME)/static
-VERSION=$(shell cat version)
+-include .env
+export
 
 
 govuk_frontend:

@@ -4,11 +4,11 @@
   }
 
   CookieBanner.prototype.init = function () {
-    console.log('initializing Cookie Banner', this.$module);
+    console.log('CookieBanner.init:', this.$module);
     this.cookies_preferences_set = Utils.getCookie('cookies_preferences_set') === 'true'
-    console.log('cookies_preferences_set', this.cookies_preferences_set)
+    console.log('CookieBanner.init: cookies_preferences_set', this.cookies_preferences_set)
     this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy', '{}'))
-    console.log('cookies_policy', this.cookies_policy)
+    console.log('CookieBanner.init: cookies_policy', this.cookies_policy)
 
     this.$module.message = this.$module.querySelector('.js-cookie-banner-message');
     this.$module.confirmAccept = this.$module.querySelector('.js-cookie-banner-confirmation-accept');
@@ -31,15 +31,20 @@
 
   CookieBanner.prototype.showBanner = function () {
     var meta = Utils.acceptedAdditionalCookies(this.cookies_policy);
-    console.log('responded', meta.responded)
-    console.log('acceptedAdditionalCookies', meta.acceptedAdditionalCookies)
 
-    this.$module.hidden = this.cookies_preferences_set;
-    if (!this.cookies_preferences_set) {
+    if (this.cookies_preferences_set) {
+      console.log('CookieBanner.showBanner: not showing banner');
+      this.$module.hidden = true;
+    } else {
+      console.log('CookieBanner.showBanner: no cookie set, showing banner');
+      this.$module.hidden = false;
+      this.$module.confirmAccept.hidden = !meta.responded || !meta.acceptedAdditionalCookies;
+      this.$module.confirmReject.hidden = !meta.responded || meta.acceptedAdditionalCookies;
+
+      // XXX this prevents the banner from displaying in future whether or not the user
+      // interacts with it - is this what we want?
       Utils.setCookie('cookies_preferences_set', 'true', {'days': 365});
     }
-    this.$module.confirmAccept.hidden = !meta.responded || !meta.acceptedAdditionalCookies;
-    this.$module.confirmReject.hidden = !meta.responded || meta.acceptedAdditionalCookies;
   }
 
   CookieBanner.prototype.hideBanner = function () {
@@ -47,9 +52,8 @@
   }
 
   CookieBanner.prototype.acceptCookies = function () {
-    console.log("accepting cookies")
-    this.$module.showAcceptConfirmation();
     console.log("CookieBanner.acceptCookies: setting ALL_COOKIES")
+    this.$module.showAcceptConfirmation();
     Utils.setCookie('cookies_policy', JSON.stringify(Utils.ALL_COOKIES), {'days': 365})
     Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
   }
@@ -61,9 +65,8 @@
   }
 
   CookieBanner.prototype.rejectCookies = function () {
-    console.log('rejecting cookies')
-    this.$module.showRejectConfirmation();
     console.log("CookieBanner.rejectCookies: setting ESSENTIAL_COOKIES")
+    this.$module.showRejectConfirmation();
     Utils.setCookie('cookies_policy', JSON.stringify(Utils.ESSENTIAL_COOKIES), {'days': 365})
     Utils.setCookie('cookies_preferences_set', 'true', {'days': 365})
   }

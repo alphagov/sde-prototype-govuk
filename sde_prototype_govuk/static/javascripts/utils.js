@@ -91,13 +91,13 @@
 
   Utils.removeURLParameter = function (url, name) {
     name += "=";
-    var queryString = Utils.getQueryString(url);
-    var parameters = queryString.split("&");
+    var [address, queryString] = url.split("?");
+    var parameters = (queryString || "").split("&");
     for (var index = 0; parameters.length > index; index++) {
       if (parameters[index].slice(0, name.length) === name) {
         parameters.splice(index--, 1);
       }
     }
-    return url.replace(queryString, parameters.join("&"));
+    return [address, parameters.join("&")].join("?");
   };
 })();

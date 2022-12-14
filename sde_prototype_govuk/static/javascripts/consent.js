@@ -1,8 +1,7 @@
 (function () {
   "use strict"
 
-  function Consent($module) {
-    this.$module = $module;
+  function Consent() {
     this.apiURL = "https://consent-api.herokuapp.com/";
     this.sharedUID = Utils.getURLParameter("uid");
     this.localUID = Utils.getCookie("uid");
@@ -11,18 +10,25 @@
 
   Consent.prototype.init = function () {
     this.$cookieBanner = document.querySelector('[data-module~="govuk-cookie-banner"]');
-    if (this.$cookieBanner) {
+    if (this.$cookieBanner && !this.$cookieBanner.hidden) {
+      console.log("Consent.init: adding event listeners to cookie banner buttons")
       this.$cookieBanner.querySelectorAll('[data-accept-cookies]').forEach((button) => {
-        button.addEventListener("click", (e) => { this.setStatus() });
+        button.addEventListener("click", (e) => { this.setStatus(Utils.ALL_COOKIES) });
       });
       this.$cookieBanner.querySelectorAll('[data-reject-cookies]').forEach((button) => {
-        button.addEventListener("click", (e) => { this.setStatus() });
+        button.addEventListener("click", (e) => { this.setStatus(Utils.ESSENTIAL_COOKIES) });
       });
     }
 
     this.$cookieSettingsForm = document.querySelector('form[data-module~="cookie-settings"]');
     if (this.$cookieSettingsForm) {
+      console.log("Consent.init: adding submit listener to cookie settings form");
       this.$cookieSettingsForm.addEventListener("submit", (event) => { this.setStatus(event.target.getFormValues()) });
+    }
+
+    if (!this.localUID && this.sharedUID) {
+      console.log("Consent.init: UID cookie not set, setting to", this.uid);
+      Utils.setCookie("uid", this.uid, {"days": 365});
     }
 
     this.status = {};
@@ -31,8 +37,10 @@
 
     this.getStatus((response) => {
       if (response) {
-        if (this.uid === null) {
+        console.log("Consent.init: got status response", response);
+        if (!this.uid) {
           this.uid = response.uid;
+          console.log("Consent.init: got new UID, setting cookie", this.uid);
           Utils.setCookie("uid", this.uid, {"days": 365});
         }
         var meta = Utils.acceptedAdditionalCookies(response.status);
@@ -40,9 +48,13 @@
           this.status = response.status;
           console.log("Consent.init: setting cookies_policy", this.status)
           Utils.setCookie('cookies_policy', JSON.stringify(this.status), {"days": 365});
-          this.updateCookieBanner(meta.acceptedAdditionalCookies);
+          Utils.setCookie('cookies_preferences_set', 'true');
+          if (this.$cookieBanner) {
+            this.$cookieBanner.hidden = true;
+          }
         }
         if (this.$cookieSettingsForm) {
+          console.log("Consent.init: update cookies settings form");
           this.$cookieSettingsForm.setFormValues(this.status);
         }
         this.decorateLinks();
@@ -51,7 +63,10 @@
   }
 
   Consent.prototype.undecorateURL = function () {
-    window.history.replaceState(null, null, Utils.removeURLParameter(window.location.href, "uid"));
+    console.log("Consent.undecorateURL: before", window.location.href);
+    var undecoratedURL = Utils.removeURLParameter(window.location.href, "uid");
+    window.history.replaceState(null, null, undecoratedURL);
+    console.log("Consent.undecorateURL: after", undecoratedURL);
   }
 
   Consent.prototype.getApiEndpoint = function () {
@@ -83,39 +98,23 @@
 
   Consent.prototype.decorateLinks = function () {
     if (this.uid) {
+      console.log("Consent.decorateLinks", this.uid);
       var nodes = document.querySelectorAll("[data-consent-share]");
       for (var index = 0; nodes.length > index; index++) {
         nodes[index].addEventListener("click", (event) => {
           if (event.target.hasAttribute("href")) {
-            event.target.setAttribute(
-              "href",
-              Utils.addURLParameter(event.target.getAttribute("href"), "uid", this.uid),
-            );
+            var url = event.target.getAttribute("href");
+            var decoratedUrl = Utils.addURLParameter(url, "uid", this.uid);
+            console.log("Consent.decorateLinks: decoratedUrl", decoratedUrl);
+            event.target.setAttribute("href", decoratedUrl);
           }
         });
       }
+      console.log(`Consent.decorateLinks: decorated ${nodes.length} links`);
     }
-  }
-
-  Consent.prototype.updateCookieBanner = function (accepted) {
-    const banner = document.querySelector('[data-module~="govuk-cookie-banner"]')
-    if (banner) {
-      banner.message.hidden = true;
-      if (accepted) {
-        banner.showAcceptConfirmation();
-      } else {
-        banner.showRejectConfirmation();
-      }
-    }
-  }
-
-  Consent.prototype.updateCookieForm = function () {
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    const nodes = document.querySelectorAll('[data-module~="consent"]');
-    for (var index = 0; nodes.length > index; index++) {
-      new Consent(nodes[index]).init();
-    }
+    new Consent().init();
   });
 })()

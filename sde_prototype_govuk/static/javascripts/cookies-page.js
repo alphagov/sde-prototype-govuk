@@ -9,14 +9,14 @@
     this.$module.getFormValues = this.getFormValues.bind(this);
     this.$module.setFormValues = this.setFormValues.bind(this);
 
-    console.log("add cookies page submit handler")
+    console.log("CookieSettings.init: add cookies page submit handler")
     document.querySelector('form[data-module=cookie-settings]')
       .addEventListener('submit', this.$module.submitSettingsForm)
 
 
     this.cookies_policy = JSON.parse(Utils.getCookie('cookies_policy'));
     if (!this.cookies_policy) {
-      console.log("CookieSettings.init: setting ESSENTIAL_COOKIES")
+      console.log("CookieSettings.init: no cookie, setting default ESSENTIAL_COOKIES")
       this.cookies_policy = Utils.ESSENTIAL_COOKIES;
       Utils.setCookie('cookies_policy', JSON.stringify(this.cookies_policy), {"days": 365});
     }
@@ -62,7 +62,7 @@
 
   CookieSettings.prototype.submitSettingsForm = function (event) {
     event.preventDefault()
-    console.log("cookies page submitted")
+    console.log("CookieSettings.submitSettingsForm")
 
     this.cookies_policy = this.getFormValues(event.target);
 
