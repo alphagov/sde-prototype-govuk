@@ -27,13 +27,16 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version-file: 'package.json'
-        cache: yarn
+        cache: npm
 
     - name: Install dependencies
       run: |
         make deps
 
     - name: Compile assets
+      env:
+        GOVUK_FRONTEND_VERSION: 4.3.1
+        GOVUK_PUBLISHING_COMPONENTS_VERSION: 30.6.1
       run: |
         make assets
 
