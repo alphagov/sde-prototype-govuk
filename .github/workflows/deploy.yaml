@@ -57,38 +57,38 @@ jobs:
         bump_version_scheme: patch
         use_github_release_notes: true
 
-    - name: Authenticate to Google Cloud
-      id: auth
-      if: steps.release.outputs.tag_name != ''
-      uses: google-github-actions/auth@v1
-      with:
-        token_format: access_token
-        workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
-        service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+    # - name: Authenticate to Google Cloud
+    #   id: auth
+    #   if: steps.release.outputs.tag_name != ''
+    #   uses: google-github-actions/auth@v1
+    #   with:
+    #     token_format: access_token
+    #     workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+    #     service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
-    - name: Login to Google Container Registry
-      id: docker-auth
-      if: steps.release.outputs.tag_name != ''
-      uses: docker/login-action@v2
-      with:
-        registry: gcr.io
-        username: oauth2accesstoken
-        password: '${{ steps.auth.outputs.access_token }}'
+    # - name: Login to Google Container Registry
+    #   id: docker-auth
+    #   if: steps.release.outputs.tag_name != ''
+    #   uses: docker/login-action@v2
+    #   with:
+    #     registry: gcr.io
+    #     username: oauth2accesstoken
+    #     password: '${{ steps.auth.outputs.access_token }}'
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v3
-      if: steps.release.outputs.tag_name != ''
-      with:
-        push: true
-        tags: |
-          ${{ env.IMAGE_NAME }}:latest
-          ${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
+    # - name: Build and push Docker image
+    #   uses: docker/build-push-action@v3
+    #   if: steps.release.outputs.tag_name != ''
+    #   with:
+    #     push: true
+    #     tags: |
+    #       ${{ env.IMAGE_NAME }}:latest
+    #       ${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
 
-    - name: Deploy to Cloud Run
-      id: deploy
-      if: steps.release.outputs.tag_name != ''
-      uses: google-github-actions/deploy-cloudrun@v0
-      with:
-        service: ${{ env.SERVICE_ID }}
-        region: ${{ env.REGION }}
-        image: ${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
+    # - name: Deploy to Cloud Run
+    #   id: deploy
+    #   if: steps.release.outputs.tag_name != ''
+    #   uses: google-github-actions/deploy-cloudrun@v0
+    #   with:
+    #     service: ${{ env.SERVICE_ID }}
+    #     region: ${{ env.REGION }}
+    #     image: ${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
