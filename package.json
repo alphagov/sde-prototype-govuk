@@ -1,5 +1,9 @@
 {
+  "engines": {
+    "node": ">=18.12.1"
+  },
   "dependencies": {
+    "@alphagov/consent-api": "github:alphagov/consent-api#semver:1.4.4",
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
     "@babel/preset-env": "^7.19.3",

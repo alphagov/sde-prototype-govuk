@@ -1,9 +1,9 @@
+"""Fake GOV.UK app."""
 from flask import Flask
+from flask_assets import Environment
 from jinja2 import ChoiceLoader
 from jinja2 import PackageLoader
 from jinja2 import PrefixLoader
-from flask_assets import Environment
-
 
 app = Flask(__name__, static_url_path="/assets")
 assets = Environment(app)
@@ -23,4 +23,4 @@ app.jinja_loader = ChoiceLoader(
     ]
 )
 
-import sde_prototype_govuk.views
+import sde_prototype_govuk.views  # noqa

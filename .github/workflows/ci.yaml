@@ -1,0 +1,42 @@
+name: Continuous Integration
+
+on:
+  pull-request:
+    branches: ['main']
+
+env:
+  FLASK_APP: sde_prototype_govuk
+  ENV: ci
+  STATIC: sde_prototype_govuk/static
+
+jobs:
+  build:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version-file: '.python-version'
+        cache: pip
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: 'package.json'
+        cache: yarn
+
+    - name: Install dependencies
+      run: |
+        make deps
+
+    - name: Compile assets
+      run: |
+        make assets
+
+    - name: Test
+      run: |
+        make test-coverage

@@ -1,9 +1,10 @@
-from markdown import markdown
-from flask import render_template
+"""Views."""
 from textwrap import dedent
 
-from sde_prototype_govuk import app
+from flask import render_template
+from markdown import markdown
 
+from sde_prototype_govuk import app
 
 CONTAINER_IDS = {
     "GA4": "GTM-TTVXKG3",
@@ -38,7 +39,10 @@ SERVICES = {
                 Registering takes around 5 minutes."""
             )
         ),
-        "href": "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/juggling-balls-ga4",
+        "href": (
+            "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/"
+            "juggling-balls-ga4"
+        ),
     },
     "Apply_juggling_licence_ua360": {
         "title": "Apply juggling licence UA360 route",
@@ -52,13 +56,17 @@ SERVICES = {
                 Registering takes around 5 minutes."""
             )
         ),
-        "href": "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/juggling-balls-ua360",
+        "href": (
+            "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/"
+            "juggling-balls-ua360"
+        ),
     },
 }
 
 
 @app.route("/")
 def index():
+    """Home page."""
     return render_template(
         "homepage.html",
         services=SERVICES,
@@ -68,6 +76,7 @@ def index():
 
 @app.route("/start/<service_name>")
 def start_page(service_name):
+    """Start page."""
     return render_template(
         "start_page.html",
         service=SERVICES[service_name],
@@ -77,4 +86,5 @@ def start_page(service_name):
 
 @app.get("/help/cookies")
 def cookies():
+    """Cookies page."""
     return render_template("cookies.html")

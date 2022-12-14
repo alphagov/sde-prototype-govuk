@@ -1,0 +1,91 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: ['main']
+
+env:
+  REGISTRY: gcr.io
+  PROJECT_ID: govuk-bigquery-analytics
+  SERVICE_ID: sde-prototype-govuk
+  IMAGE_NAME: gcr.io/govuk-bigquery-analytics/sde-prototype-govuk
+  REGION: europe-west2
+  STATIC: sde_prototype_govuk/static
+
+jobs:
+
+  docker-image:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version-file: '.python-version'
+        cache: pip
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: 'package.json'
+        cache: npm
+
+    - name: Install dependencies
+      run: |
+        make deps
+
+    - name: Compile assets
+      run: |
+        make assets
+
+    - name: Bump version and push tag
+      id: release
+      uses: rymndhng/release-on-push-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        bump_version_scheme: patch
+        use_github_release_notes: true
+
+    - name: Authenticate to Google Cloud
+      id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        token_format: access_token
+        workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+        service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+    - name: Login to Google Container Registry
+      id: docker-auth
+      uses: docker/login-action@v2
+      with:
+        registry: gcr.io
+        username: oauth2accesstoken
+        password: '${{ steps.auth.outputs.access_token }}'
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: |
+          ${{ env.IMAGE_NAME }}:latest
+          ${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
+
+    - name: Deploy to Cloud Run
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@v0
+      with:
+        service: ${{ env.SERVICE_ID }}
+        region: ${{ env.REGION }}
+        image: ${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
+
+    - name: Show URL
+      run: |
+        echo ${{ steps.deploy.outputs.url }}
