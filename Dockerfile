@@ -20,12 +20,12 @@ COPY --chown=app:app --from=build /home/app/venv ./venv
 COPY --chown=app:app sde_prototype_govuk/ sde_prototype_govuk/
 COPY --chown=app:app govuk_frontend/ govuk_frontend/
 COPY --chown=app:app govuk_publishing_components/ govuk_publishing_components/
-COPY --chown=app:app sprockets_filter.py .
 
 ARG GOVUK_FRONTEND_VERSION
 ENV GOVUK_FRONTEND_VERSION=${GOVUK_FRONTEND_VERSION:-4.3.1}
 ARG GOVUK_PUBLISHING_COMPONENTS_VERSION
 ENV GOVUK_PUBLISHING_COMPONENTS_VERSION=${GOVUK_PUBLISHING_COMPONENTS_VERSION:-30.6.1}
 ENV PATH="/home/app/venv/bin:$PATH"
+ENV FLASK_DEBUG=False
 
 CMD gunicorn sde_prototype_govuk:app
