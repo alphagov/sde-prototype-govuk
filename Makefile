@@ -4,8 +4,8 @@ export
 APP_NAME ?= sde_prototype_govuk
 ENV ?= development
 FLASK_APP ?= $(APP_NAME):app
-GOVUK_FRONTEND_VERSION ?= $(shell cat .govuk_frontend_version)
-GOVUK_PUBLISHING_COMPONENTS_VERSION ?= $(shell cat .govuk_publishing_components_version)
+GOVUK_FRONTEND_VERSION ?= "4.3.1"
+GOVUK_PUBLISHING_COMPONENTS_VERSION ?= "30.6.1"
 PORT ?= 8000
 
 .PHONY: clean
