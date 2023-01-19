@@ -72,7 +72,7 @@ test-coverage:
 
 .PHONY: run
 run:
-	flask --debug run --debugger --reload
+	flask --debug run --debugger --reload --host 0.0.0.0 --port $(PORT)
 
 .PHONY: docker-image
 docker-image: clean
@@ -87,6 +87,7 @@ docker-image: clean
 docker-run:
 	docker run \
 		--rm \
+		--env CONSENT_API_HOST="$(CONSENT_API_HOST)" \
 		--env GUNICORN_CMD_ARGS="--bind=0.0.0.0:$(PORT)" \
 		-p $(PORT):$(PORT) \
 		$(APP_NAME)

@@ -255,4 +255,10 @@
 {% block bodyEnd %}
   {% assets "govuk_frontend_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
   {% assets "application_js" %}<script src="{{ ASSET_URL }}"></script>{% endassets %}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.ConsentAPIClient = new Consent();
+      window.ConsentAPIClient.init({"host": "{{ getenv('CONSENT_API_HOST') }}"})
+    })
+  </script>
 {% endblock %}
