@@ -1,4 +1,5 @@
 """Views."""
+import os
 from textwrap import dedent
 
 from flask import render_template
@@ -25,7 +26,7 @@ SERVICES = {
             often cryptic, akin to parables. Each line in every hexagram is also given a
             similar description."""
         ),
-        "href": "https://haas-j4f7bdslta-nw.a.run.app/",
+        "href": os.environ.get("HAAS_URL", "http://localho.st:8081/"),
     },
     "Apply_juggling_licence_ga4": {
         "title": "Apply juggling licence GA4 route",
@@ -39,10 +40,11 @@ SERVICES = {
                 Registering takes around 5 minutes."""
             )
         ),
-        "href": (
-            "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/"
-            "juggling-balls-ga4"
-        ),
+        "href": os.environ.get(
+            "JUGGLING_LICENCE_URL",
+            "http://localho.st:8082/",
+        )
+        + "start-ga4/",
     },
     "Apply_juggling_licence_ua360": {
         "title": "Apply juggling licence UA360 route",
@@ -56,10 +58,11 @@ SERVICES = {
                 Registering takes around 5 minutes."""
             )
         ),
-        "href": (
-            "https://apply-juggling-licence-j4f7bdslta-nw.a.run.app/"
-            "juggling-balls-ua360"
-        ),
+        "href": os.environ.get(
+            "JUGGLING_LICENCE_URL",
+            "http://localho.st:8082/",
+        )
+        + "start-ua360/",
     },
 }
 
