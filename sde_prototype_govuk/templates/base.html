@@ -1,11 +1,14 @@
 {% extends 'govuk_frontend_jinja/template.html' %}
 {% from 'govuk_frontend_jinja/components/cookie-banner/macro.html' import govukCookieBanner %}
+{% from "google_analytics/gtm.html" import gtm_head_multi_container, gtm_body_multi_container %}
 
 {% set assetPath = url_for('static', filename='').rstrip('/') %}
 
 {% block pageTitle %}Welcome to GOV.UK{% endblock %}
 
 {% block head %}
+  {{ gtm_head_multi_container(container_ids.values()) }}
+  {{ super() }}
   <meta name="description" content="GOV.UK - The place to find government services and information - simpler, clearer, faster.">
   {% assets "govuk_frontend_css" %}<!--[if gt IE 8]><!--><link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" /><!--<![endif]-->{% endassets %}
   {% assets "govuk_frontend_ie8_css" %}<!--[if IE 8]><link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" /><![endif]-->{% endassets %}
@@ -14,6 +17,8 @@
 {% endblock %}
 
 {% block bodyStart %}
+  {{ gtm_body_multi_container(container_ids.values()) }}
+  {{ super() }}
   {% set html %}
     <p class="govuk-body">We use some essential cookies to make this service work.</p>
     <p class="govuk-body">We'd also like to use analytics cookies so we can understand

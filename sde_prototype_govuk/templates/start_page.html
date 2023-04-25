@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% from "govuk_frontend_jinja/components/breadcrumbs/macro.html" import govukBreadcrumbs -%}
 {% from "govuk_frontend_jinja/components/button/macro.html" import govukButton -%}
-{% from "google_analytics/gtm.html" import gtm_head_multi_container, gtm_body_multi_container %}
-
-{% block head %}
-  {{ gtm_head_multi_container(container_ids.values()) }}
-  {{ super() }}
-{% endblock %}
-
-{% block bodyStart %}
-  {{ gtm_body_multi_container(container_ids.values()) }}
-  {{ super() }}
-{% endblock %}
 
 {% block main %}
   <div id="wrapper" class="govuk-width-container">
