@@ -9,17 +9,22 @@ GOVUK_PUBLISHING_COMPONENTS_VERSION ?= 30.6.1
 PORT ?= 8000
 STATIC ?= $(APP_NAME)/static
 
-.PHONY: clean
-clean:
+.PHONY: clean-python
+clean-python:
 	find . \( -name '__pycache__' -and -not -name "venv" \) -d -prune -exec rm -r {} +
 
-.PHONY: full-clean
-full-clean: clean
+.PHONY: clean-static-assets
+clean-static-assets:
 	rm -rf node_modules
 	rm -rf govuk_frontend
 	rm -rf govuk_publishing_components
 	rm -rf $(STATIC)/images $(STATIC)/fonts $(STATIC)/javascripts
 	flask assets clean
+	
+
+## clean: Remove temporary and generated files
+.PHONY: clean
+clean: clean-python clean-static-assets
 
 .PHONY: python-deps
 python-deps:
@@ -31,17 +36,18 @@ python-deps:
 node-deps:
 	npm install
 
-.PHONY: deps
-deps: python-deps node-deps
+# install: Install dependencies
+.PHONY: install
+install: python-deps node-deps
 
-.PHONY: lint
-lint:
+.PHONY: check
+check:
 	black --check .
 	isort --check-only --profile=black --force-single-line-imports .
 	flake8 --max-line-length=88 --extend-ignore=E203
 
-.PHONY: lint-fix
-lint-fix:
+.PHONY: fix
+fix:
 	pre-commit run --all-files
 
 govuk_frontend:
@@ -63,6 +69,7 @@ assets: govuk_frontend govuk_publishing_components consent_api
 	cp -f -R govuk_frontend/dist/assets/* $(STATIC)/
 	flask assets build
 
+# test: Run tests
 .PHONY: test
 test:
 	pytest -x -n=auto --dist=loadfile -W ignore::DeprecationWarning
@@ -71,10 +78,12 @@ test:
 test-coverage:
 	pytest -n=auto --cov --cov-report=xml --cov-report=term -W ignore::DeprecationWarning
 
+# run: Run development server
 .PHONY: run
 run:
 	flask --debug run --debugger --reload --host 0.0.0.0 --port $(PORT)
 
+# docker-image: Build a Docker image
 .PHONY: docker-image
 docker-image: clean
 	docker buildx build \
@@ -84,6 +93,7 @@ docker-image: clean
 		-t $(APP_NAME) \
 		.
 
+# docker-run: Start a Docker container
 .PHONY: docker-run
 docker-run:
 	docker run \
@@ -92,3 +102,8 @@ docker-run:
 		--env GUNICORN_CMD_ARGS="--bind=0.0.0.0:$(PORT)" \
 		-p $(PORT):$(PORT) \
 		$(APP_NAME)
+
+## help: Show this message
+.PHONY: help
+help: Makefile
+	@sed -n 's/^##//p' $< | column -t -s ':' | sed -e 's/^/ /'
