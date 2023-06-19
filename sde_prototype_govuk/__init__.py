@@ -12,6 +12,11 @@ assets = Environment(app)
 assets.from_module("sde_prototype_govuk.assets")
 
 app.jinja_env.globals["getenv"] = os.getenv
+app.jinja_env.globals["container_ids"] = {
+    "GA4": "GTM-TTVXKG3",
+    "UA": "GTM-5S9XWS6",
+}
+
 
 app.jinja_loader = ChoiceLoader(
     [

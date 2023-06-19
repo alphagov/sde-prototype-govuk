@@ -7,11 +7,6 @@ from markdown import markdown
 
 from sde_prototype_govuk import app
 
-CONTAINER_IDS = {
-    "GA4": "GTM-TTVXKG3",
-    "UA": "GTM-5S9XWS6",
-}
-
 SERVICES = {
     "haas": {
         "title": "Hexagrams as a Service",
@@ -73,7 +68,6 @@ def index():
     return render_template(
         "homepage.html",
         services=SERVICES,
-        container_ids=CONTAINER_IDS,
     )
 
 
@@ -83,7 +77,6 @@ def start_page(service_name):
     return render_template(
         "start_page.html",
         service=SERVICES[service_name],
-        container_ids=CONTAINER_IDS,
     )
 
 
