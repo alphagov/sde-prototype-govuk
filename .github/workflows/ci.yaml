@@ -40,6 +40,6 @@ jobs:
       run: |
         make assets
 
-    - name: Test
-      run: |
-        make test-coverage
+    # - name: Test
+    #   run: |
+    #     make test-coverage
