@@ -31,7 +31,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make deps
+        make install
 
     - name: Compile assets
       env:
