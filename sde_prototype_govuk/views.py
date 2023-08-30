@@ -39,7 +39,7 @@ SERVICES = {
             "JUGGLING_LICENCE_URL",
             "http://localho.st:8082/",
         )
-        + "start-ga4/",
+        + "start-ga4",
     },
     "Apply_juggling_licence_ua360": {
         "title": "Apply juggling licence UA360 route",
