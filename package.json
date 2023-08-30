@@ -3,7 +3,7 @@
     "node": ">=18.12.1"
   },
   "dependencies": {
-    "@alphagov/consent-api": "alphagov/consent-api#semver:1.6.0",
+    "@alphagov/consent-api": "alphagov/consent-api#semver:1.10.0",
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
     "@babel/preset-env": "^7.19.3",

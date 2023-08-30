@@ -62,7 +62,8 @@ govuk_publishing_components:
 .PHONY: consent_api
 consent_api:
 	mkdir -p $(STATIC)/javascripts
-	cp node_modules/@alphagov/consent-api/client/src/*.js $(STATIC)/javascripts/
+	cp node_modules/@alphagov/consent-api/client/src/singleconsent.js $(STATIC)/javascripts/
+	cp node_modules/@alphagov/consent-api/client/example/*.js $(STATIC)/javascripts/
 
 .PHONY: assets
 assets: govuk_frontend govuk_publishing_components consent_api
