@@ -48,7 +48,7 @@ application_css = Bundle(
 
 application_js = Bundle(
     "javascripts/utils.js",
-    "javascripts/consent.js",
+    "javascripts/singleconsent.js",
     "javascripts/cookie-banner.js",
     "javascripts/cookies-page.js",
     filters=[

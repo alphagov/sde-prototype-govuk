@@ -40,7 +40,7 @@
     'ariaLabel': 'Cookies on GOV.UK',
     'attributes': {
       'data-module': 'govuk-cookie-banner consent',
-      'data-consent-api-url': getenv('CONSENT_API_URL')
+      'data-consent-api-url': getenv('CONSENT_API_URL', 'https://consent-api-bgzqvpmbyq-nw.a.run.app/api/v1/consent/')
     },
     'messages': [
       {
